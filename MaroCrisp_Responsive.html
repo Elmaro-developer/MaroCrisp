@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MaroCrisp | Crunch Into Greatness — Premium Crispy Chicken</title>
+
+  <!-- Google Fonts: Anton & Bebas Neue for bold display, Plus Jakarta Sans & Cairo for crisp UI & Arabic support -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome 6 for crisp icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- GSAP & ScrollTrigger for cinematic scroll choreography -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#09090B',
+            charcoal: '#121216',
+            surface: '#18181F',
+            flame: '#FF2A4B',
+            crimson: '#E11D48',
+            ember: '#FF6B00',
+            gold: '#FBBF24',
+          },
+          fontFamily: {
+            display: ['Anton', 'Bebas Neue', 'Cairo', 'sans-serif'],
+            bebas: ['Bebas Neue', 'Cairo', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif'],
+            arabic: ['Cairo', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-obsidian: #09090B;
+      --bg-charcoal: #121216;
+      --accent-flame: #FF2A4B;
+      --accent-ember: #FF6B00;
+      --accent-gold: #FBBF24;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background-color: var(--bg-obsidian);
+      color: #FAFAFA;
+      font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    html[dir="rtl"] body {
+      font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #09090B;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #FF2A4B, #FF6B00);
+      border-radius: 9999px;
+    }
+
+    /* Typography helpers */
+    .font-display-hero {
+      font-family: 'Anton', 'Cairo', sans-serif;
+      letter-spacing: 0.02em;
+      line-height: 0.94;
+    }
+
+    html[dir="rtl"] .font-display-hero {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .text-gradient-fire {
+      background: linear-gradient(135deg, #FF2A4B 0%, #FF6B00 55%, #FBBF24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bg-gradient-fire {
+      background: linear-gradient(135deg, #FF2A4B 0%, #FF6B00 100%);
+    }
+
+    /* Glassmorphism */
+    .glass-panel {
+      background: rgba(18, 18, 22, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(28, 28, 36, 0.85) 0%, rgba(14, 14, 18, 0.92) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 107, 0, 0.45);
+      box-shadow: 0 22px 50px -12px rgba(255, 42, 75, 0.25);
+    }
+
+    /* Ambient Glow Blobs */
+    .ember-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+      animation: pulseOrb 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseOrb {
+      0% { transform: scale(0.95) translate(0, 0); opacity: 0.38; }
+      100% { transform: scale(1.12) translate(20px, -15px); opacity: 0.58; }
+    }
+
+    /* Floating Food Elements Animations */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(5deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(14px) rotate(-6deg); }
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-float-1 { animation: floatSlow 5.2s ease-in-out infinite; }
+    .animate-float-2 { animation: floatReverse 6.4s ease-in-out infinite; }
+    .animate-float-3 { animation: floatSlow 7.1s ease-in-out infinite 0.8s; }
+    .animate-spin-slow { animation: spinSlow 28s linear infinite; }
+
+    /* 3D Tilt Card Perspective */
+    .tilt-wrapper {
+      perspective: 1100px;
+    }
+    .tilt-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    /* Magnetic Button Micro-interaction */
+    .magnetic-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    .magnetic-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 0.65s ease;
+    }
+    .magnetic-btn:hover::after {
+      transform: translateX(120%);
+    }
+
+    /* Custom Cursor Follower (Desktop only) */
+    #cursor-glow {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 107, 0, 0.13) 0%, rgba(255, 42, 75, 0.05) 45%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #09090B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.65s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.65s ease;
+    }
+    #preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Hide scrollbar for horizontal category pills on mobile */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Flying badge animation */
+    @keyframes flyPulse {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.42); }
+      100% { transform: scale(1); }
+    }
+    .cart-bump {
+      animation: flyPulse 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Reveal utility fallback */
+    .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  
+    /* MaroCrisp responsive layout */
+    img, video, iframe, svg {
+      max-width: 100%;
+    }
+    img {
+      height: auto;
+    }
+    section, header, footer, main {
+      min-width: 0;
+    }
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (max-width: 767px) {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+      }
+
+      #navbar {
+        padding-top: 0.5rem !important;
+      }
+      #navbar > div {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      #nav-container {
+        padding: 0.65rem 0.75rem !important;
+        border-radius: 1rem !important;
+      }
+      #navbar a .text-2xl {
+        font-size: 1.25rem !important;
+      }
+      #mobile-nav {
+        margin-left: 0.75rem !important;
+        margin-right: 0.75rem !important;
+        padding: 0.85rem !important;
+        max-height: calc(100dvh - 6rem);
+        overflow-y: auto;
+      }
+
+      section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+      }
+      #home {
+        min-height: auto !important;
+        padding-top: 7.5rem !important;
+        padding-bottom: 3rem !important;
+      }
+
+      .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl,
+      .max-w-3xl, .max-w-2xl, .max-w-xl {
+        max-width: 100% !important;
+      }
+      section > .max-w-7xl,
+      section > .max-w-6xl,
+      section > .max-w-5xl,
+      section > .max-w-4xl,
+      section > .max-w-3xl,
+      section > .max-w-2xl,
+      section > .max-w-xl {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+
+      .grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+      .flex-wrap {
+        row-gap: 0.75rem;
+      }
+      .gap-12, .gap-10, .gap-8 {
+        gap: 1.5rem !important;
+      }
+
+      .font-display-hero {
+        font-size: clamp(2.4rem, 11vw, 4rem) !important;
+        line-height: 1.08 !important;
+        overflow-wrap: anywhere;
+      }
+      h1 {
+        max-width: 100%;
+      }
+      h2 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem) !important;
+        line-height: 1.15 !important;
+        overflow-wrap: anywhere;
+      }
+      h3 {
+        overflow-wrap: anywhere;
+      }
+      p {
+        overflow-wrap: break-word;
+      }
+
+      .magnetic-btn {
+        max-width: 100%;
+        white-space: normal;
+        justify-content: center;
+        text-align: center;
+        padding: 0.85rem 1rem !important;
+      }
+      .glass-panel, .glass-card {
+        min-width: 0;
+      }
+      .ember-orb {
+        filter: blur(65px);
+        opacity: 0.25;
+      }
+      .animate-float-1, .animate-float-2, .animate-float-3 {
+        animation: none !important;
+      }
+
+      #contact input, #contact textarea, #contact select {
+        width: 100%;
+        max-width: 100%;
+      }
+      footer .flex {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 380px) {
+      #navbar .text-2xl {
+        font-size: 1.1rem !important;
+      }
+      .font-display-hero {
+        font-size: clamp(2.1rem, 10.5vw, 2.8rem) !important;
+      }
+      .magnetic-btn {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      section {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+      }
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+      #home .grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+    }
+
+  </style>
+</head>
+<body class="bg-obsidian text-zinc-100 selection:bg-flame selection:text-white">
+
+  <!-- CINEMATIC PRELOADER -->
+  <div id="preloader" aria-label="Loading MaroCrisp">
+    <div class="relative flex flex-col items-center">
+      <div class="w-20 h-20 rounded-2xl bg-gradient-fire flex items-center justify-center shadow-[0_0_50px_rgba(255,42,75,0.6)] mb-5 animate-bounce">
+        <i class="fa-solid fa-fire-flame-curved text-white text-4xl"></i>
+      </div>
+      <div class="font-display text-4xl tracking-wider text-white">
+        Maro<span class="text-gradient-fire">Crisp</span>
+      </div>
+      <p class="text-xs uppercase tracking-[0.3em] text-zinc-400 mt-1 mb-6">Igniting MaroCrisp</p>
+      <div class="w-56 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+        <div id="preloader-bar" class="h-full bg-gradient-fire w-0 transition-all duration-300 rounded-full"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP AMBIENT CURSOR GLOW -->
+  <div id="cursor-glow" class="hidden lg:block"></div>
+
+  <!-- FLOATING EMBERS CANVAS BACKGROUND -->
+  <canvas id="ember-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-60"></canvas>
+
+  <!-- STICKY GLASSMORPHIC NAVBAR -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3 transition-all duration-300" id="nav-container">
+        <!-- Brand Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-fire flex items-center justify-center shadow-lg shadow-flame/30 group-hover:rotate-12 transition-transform">
+            <i class="fa-solid fa-fire-flame-curved text-white text-lg"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display text-2xl tracking-wide leading-none text-white">Maro<span class="text-ember">Crisp</span></span>
+            <span class="text-[10px] tracking-[0.22em] text-zinc-400 uppercase font-semibold" data-i18n="brandSub">Artisan Fried Chicken</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-zinc-300">
+          <a href="#home" class="nav-link hover:text-white transition-colors" data-i18n="navHome">Home</a>
+          <a href="#story" class="nav-link hover:text-white transition-colors" data-i18n="navStory">Our Story</a>
+          <a href="#menu" class="nav-link hover:text-white transition-colors" data-i18n="navMenu">Menu</a>
+          <a href="#bestsellers" class="nav-link hover:text-white transition-colors" data-i18n="navBest">Best Sellers</a>
+          <a href="#offers" class="nav-link hover:text-white transition-colors flex items-center gap-1.5">
+            <span data-i18n="navOffers">Special Offers</span>
+            <span class="px-1.5 py-0.5 text-[10px] font-extrabold bg-flame/20 text-flame border border-flame/40 rounded-md">HOT</span>
+          </a>
+          <a href="#reviews" class="nav-link hover:text-white transition-colors" data-i18n="navReviews">Reviews</a>
+          <a href="#contact" class="nav-link hover:text-white transition-colors" data-i18n="navContact">Contact</a>
+        </nav>
+
+        <!-- Right Action Controls -->
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          <!-- EN / AR Language Toggle -->
+          <button id="lang-toggle" type="button" class="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold tracking-wider text-zinc-200 transition flex items-center gap-1.5" title="Switch Language">
+            <i class="fa-solid fa-globe text-ember"></i>
+            <span id="lang-label">AR</span>
+          </button>
+
+          <!-- Cart Trigger Button -->
+          <button id="open-cart-btn" type="button" aria-label="Open Shopping Cart" class="relative p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition group">
+            <i class="fa-solid fa-bag-shopping text-lg group-hover:text-ember transition-colors"></i>
+            <span id="nav-cart-badge" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-gradient-fire text-[11px] font-extrabold text-white flex items-center justify-center shadow-md shadow-flame/50">0</span>
+          </button>
+
+          <!-- Magnetic CTA Button -->
+          <a href="#menu" class="hidden sm:inline-flex magnetic-btn px-5 py-2.5 rounded-xl bg-gradient-fire text-white font-bold text-sm shadow-lg shadow-flame/30 hover:shadow-flame/50">
+            <span data-i18n="orderNow">Order Now</span>
+            <i class="fa-solid fa-bolt ms-2 text-gold"></i>
+          </a>
+
+          <!-- Mobile Hamburger Menu Button -->
+          <button id="mobile-menu-btn" type="button" aria-label="Open Menu" class="lg:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white">
+            <i class="fa-solid fa-bars-staggered text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="hidden lg:hidden mx-4 mt-2 rounded-2xl glass-panel p-5 shadow-2xl border border-white/10">
+      <div class="flex flex-col space-y-3 text-base font-semibold">
+        <a href="#home" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navHome">Home</a>
+        <a href="#story" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navStory">Our Story</a>
+        <a href="#menu" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navMenu">Menu</a>
+        <a href="#bestsellers" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navBest">Best Sellers</a>
+        <a href="#offers" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navOffers">Special Offers</a>
+        <a href="#reviews" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navReviews">Reviews</a>
+        <a href="#contact" class="mobile-nav-link py-2 px-3 rounded-xl hover:bg-white/5 text-zinc-200" data-i18n="navContact">Contact</a>
+        <a href="#menu" class="mobile-nav-link mt-2 py-3 rounded-xl bg-gradient-fire text-center text-white font-bold shadow-lg" data-i18n="orderNow">Order Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 1. HERO SECTION ==================== -->
+  <section id="home" class="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+    <!-- Ambient Lighting Orbs -->
+    <div class="ember-orb w-[460px] h-[460px] bg-flame top-12 -left-24"></div>
+    <div class="ember-orb w-[520px] h-[520px] bg-ember bottom-0 right-0" style="animation-delay: 2s;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-6 text-center lg:text-start space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel border border-ember/30 text-xs sm:text-sm font-bold text-gold shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-flame animate-ping"></span>
+            <span data-i18n="heroBadge">24-HR BUTTERMILK BRINED • DOUBLE HAND-BREADED</span>
+          </div>
+
+          <h1 class="font-display-hero text-6xl sm:text-7xl xl:text-[5.5rem] uppercase tracking-tight text-white">
+            <span data-i18n="heroTitle1">CRUNCH INTO</span><br />
+            <span class="text-gradient-fire" data-i18n="heroTitle2">GREATNESS</span>
+          </h1>
+
+          <p class="text-zinc-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed" data-i18n="heroDesc">
+            Engineered for maximum shatter-crisp perfection. Pasture-raised chicken marinated in 19 fiery botanicals, pressure-seared to golden glory, and paired with our signature smoked habanero &amp; truffle honey glazes.
+          </p>
+
+          <!-- Interactive Magnetic Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#menu" class="magnetic-btn px-8 py-4 rounded-2xl bg-gradient-fire text-white font-extrabold text-base shadow-[0_14px_35px_rgba(255,42,75,0.4)] hover:shadow-[0_18px_45px_rgba(255,107,0,0.55)]">
+              <span data-i18n="heroCtaPrimary">Explore Full Menu</span>
+              <i class="fa-solid fa-arrow-right ms-2.5 rtl:rotate-180"></i>
+            </a>
+
+            <a href="#offers" class="magnetic-btn px-7 py-4 rounded-2xl glass-panel hover:bg-white/10 text-white font-bold text-base border border-white/15 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-ember/20 text-ember flex items-center justify-center">
+                <i class="fa-solid fa-fire text-sm"></i>
+              </span>
+              <span data-i18n="heroCtaSecondary">Hot Combo Deals</span>
+            </a>
+          </div>
+
+          <!-- Brand Proof Metrics -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+            <div>
+              <div class="font-display text-3xl sm:text-4xl text-white">19<span class="text-ember">+</span></div>
+              <div class="text-xs text-zinc-400 font-medium" data-i18n="stat1">Secret Spices</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl sm:text-4xl text-white">4.9<span class="text-gold">★</span></div>
+              <div class="text-xs text-zinc-400 font-medium" data-i18n="stat2">14,800+ Reviews</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl sm:text-4xl text-white">25<span class="text-flame">m</span></div>
+              <div class="text-xs text-zinc-400 font-medium" data-i18n="stat3">Hot Express Delivery</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero 3D Interactive Showcase with Floating Elements -->
+        <div class="lg:col-span-6 relative flex items-center justify-center">
+          <div id="hero-parallax-stage" class="relative w-full max-w-[540px] aspect-square flex items-center justify-center">
+            <!-- Rotating Neon Ring -->
+            <div class="absolute inset-6 rounded-full border border-dashed border-ember/30 animate-spin-slow pointer-events-none"></div>
+            <div class="absolute inset-14 rounded-full bg-gradient-to-tr from-flame/25 via-ember/20 to-gold/10 blur-2xl pointer-events-none"></div>
+
+            <!-- Main 3D Crispy Chicken Feast Card -->
+            <div id="hero-3d-dish" class="relative z-10 w-[84%] h-[84%] rounded-[2.5rem] p-3 glass-card shadow-[0_30px_80px_rgba(0,0,0,0.85)] border border-white/15 transition-transform duration-200 ease-out">
+              <div class="relative w-full h-full rounded-[2rem] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=1000&q=85"
+                  alt="Signature Crispy Fried Chicken Feast"
+                  class="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
+                  onerror="this.src='https://placehold.co/800x800/18181F/FF6B00?text=MaroCrisp+FEAST'"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-5 inset-x-5 flex items-end justify-between">
+                  <div>
+                    <span class="px-2.5 py-1 rounded-lg bg-flame text-[11px] font-extrabold uppercase tracking-wider text-white">Chef's Signature</span>
+                    <h3 class="font-display text-2xl sm:text-3xl text-white mt-1">INFERNO CRUNCH BUCKET</h3>
+                  </div>
+                  <div class="text-end">
+                    <span class="text-xs text-zinc-400 line-through block">$24.99</span>
+                    <span class="font-display text-3xl text-gold">$18.99</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Element 1: Chili Pepper Badge (Top Left) -->
+            <div data-depth="35" class="parallax-layer animate-float-1 absolute top-4 left-2 sm:left-4 z-20 glass-panel px-4 py-3 rounded-2xl border border-flame/40 shadow-xl flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-flame/20 flex items-center justify-center text-flame text-xl">
+                <i class="fa-solid fa-pepper-hot"></i>
+              </div>
+              <div>
+                <div class="text-xs font-extrabold text-white" data-i18n="floatSpiceTitle">Ghost Chili Glaze</div>
+                <div class="text-[11px] text-zinc-400" data-i18n="floatSpiceSub">Smoky Heat Level 9/10</div>
+              </div>
+            </div>
+
+            <!-- Floating Element 2: Crispy Golden Fries Card (Bottom Left) -->
+            <div data-depth="-28" class="parallax-layer animate-float-2 absolute bottom-6 left-0 sm:left-2 z-20 glass-panel p-2.5 rounded-2xl border border-gold/30 shadow-xl flex items-center gap-3">
+              <img
+                src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=200&q=80"
+                alt="Seasoned Waffle Fries"
+                class="w-12 h-12 rounded-xl object-cover"
+                onerror="this.src='https://placehold.co/100x100/18181F/FBBF24?text=FRIES'"
+              />
+              <div class="pe-2">
+                <div class="text-xs font-extrabold text-white" data-i18n="floatFriesTitle">Truffle Cajun Fries</div>
+                <div class="text-[11px] text-gold font-bold">+$2.50 Combo Upgrade</div>
+              </div>
+            </div>
+
+            <!-- Floating Element 3: Crunch Meter Pill (Top Right) -->
+            <div data-depth="25" class="parallax-layer animate-float-3 absolute top-10 right-0 sm:right-2 z-20 glass-panel px-4 py-2.5 rounded-2xl border border-ember/40 shadow-xl text-center">
+              <div class="text-ember text-lg font-black leading-none">100%</div>
+              <div class="text-[10px] uppercase tracking-wider text-zinc-300 font-bold mt-0.5" data-i18n="floatFresh">Fresh Never Frozen</div>
+            </div>
+
+            <!-- Floating Element 4: Dipping Sauce Cup (Bottom Right) -->
+            <div data-depth="-35" class="parallax-layer animate-float-1 absolute bottom-12 right-1 sm:right-4 z-20 w-16 h-16 rounded-2xl bg-gradient-fire p-0.5 shadow-2xl rotate-12">
+              <div class="w-full h-full bg-charcoal rounded-[14px] flex flex-col items-center justify-center text-center">
+                <i class="fa-solid fa-droplet text-ember text-lg"></i>
+                <span class="text-[9px] font-extrabold text-white uppercase mt-0.5">Lava Dip</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. OUR STORY SECTION ==================== -->
+  <section id="story" class="relative py-24 bg-charcoal/60 border-y border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Story Visual Collage -->
+        <div class="lg:col-span-6 relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl h-64">
+                <img
+                  src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80"
+                  alt="Hand-breaded crispy chicken tenders"
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  onerror="this.src='https://placehold.co/600x700/18181F/FF2A4B?text=CRAFT+CHICKEN'"
+                />
+              </div>
+              <div class="glass-card rounded-3xl p-6 border border-ember/25">
+                <div class="font-display text-4xl text-gradient-fire">24 HOURS</div>
+                <p class="text-xs text-zinc-400 mt-1 leading-relaxed" data-i18n="storyBox1">Slow-submerged in spiced cultured buttermilk for fork-tender juiciness inside every crunchy ridge.</p>
+              </div>
+            </div>
+            <div class="space-y-4 pt-8">
+              <div class="glass-card rounded-3xl p-6 border border-flame/25">
+                <div class="font-display text-4xl text-white">DOUBLE<span class="text-ember">DIP</span></div>
+                <p class="text-xs text-zinc-400 mt-1 leading-relaxed" data-i18n="storyBox2">Our proprietary micro-flake flour dredge creates audible crunch waves that stay crispy for 45+ minutes.</p>
+              </div>
+              <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl h-64">
+                <img
+                  src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"
+                  alt="Gourmet Crispy Chicken Burger"
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  onerror="this.src='https://placehold.co/600x700/18181F/FF6B00?text=SIGNATURE+BURGER'"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story Narrative -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 text-ember font-extrabold text-xs uppercase tracking-[0.25em]">
+            <span class="w-8 h-[2px] bg-ember"></span>
+            <span data-i18n="storyTag">THE MaroCrisp OBSESSION</span>
+          </div>
+
+          <h2 class="font-display text-4xl sm:text-6xl text-white leading-none" data-i18n="storyHeadline">
+            NOT FAST FOOD. <span class="text-gradient-fire">CRUNCH ARCHITECTURE.</span>
+          </h2>
+
+          <p class="text-zinc-300 text-base leading-relaxed" data-i18n="storyP1">
+            Born from a late-night culinary lab obsessed with solving fried chicken's greatest flaw—sogginess—MaroCrisp pioneered a dual-temperature pressure-fry method paired with 19 roasted spices, smoked paprika, and aged cayenne.
+          </p>
+
+          <p class="text-zinc-400 text-sm sm:text-base leading-relaxed" data-i18n="storyP2">
+            Every fillet, wing, and drumstick is hand-tossed to order in small batches. Zero heat lamps. Zero frozen shortcuts. Just pure, shatteringly crisp gold sealed over tender, juicy chicken.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3">
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+              <i class="fa-solid fa-seedling text-gold text-xl mb-2"></i>
+              <h4 class="font-bold text-sm text-white" data-i18n="pillar1Title">100% Halal &amp; Farm Fresh</h4>
+              <p class="text-xs text-zinc-400 mt-1" data-i18n="pillar1Desc">Antibiotic-free local poultry delivered daily.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+              <i class="fa-solid fa-fire-burner text-flame text-xl mb-2"></i>
+              <h4 class="font-bold text-sm text-white" data-i18n="pillar2Title">19-Spice Armor</h4>
+              <p class="text-xs text-zinc-400 mt-1" data-i18n="pillar2Desc">Custom-milled volcanic spice &amp; herb crust.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+              <i class="fa-solid fa-bottle-droplet text-ember text-xl mb-2"></i>
+              <h4 class="font-bold text-sm text-white" data-i18n="pillar3Title">House-Crafted Sauces</h4>
+              <p class="text-xs text-zinc-400 mt-1" data-i18n="pillar3Desc">8 small-batch dips whipped fresh every morning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. BEST SELLERS SPOTLIGHT ==================== -->
+  <section id="bestsellers" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-flame block mb-2" data-i18n="bestTag">HALL OF FAME</span>
+          <h2 class="font-display text-4xl sm:text-6xl text-white" data-i18n="bestTitle">CROWD <span class="text-gradient-fire">FAVORITES</span></h2>
+        </div>
+        <p class="text-zinc-400 text-sm max-w-md" data-i18n="bestSub">
+          Our highest-rated, most-reordered icons. Hover to inspect in 3D or add straight to your bag.
+        </p>
+      </div>
+
+      <div id="bestsellers-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Populated dynamically via JS from MENU_ITEMS where bestSeller === true -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. INTERACTIVE MENU SECTION ==================== -->
+  <section id="menu" class="relative py-24 bg-charcoal/50 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ember block mb-2" data-i18n="menuTag">CRAFTED TO ORDER</span>
+        <h2 class="font-display text-5xl sm:text-6xl text-white" data-i18n="menuTitle">THE <span class="text-gradient-fire">MaroCrisp</span> MENU</h2>
+        <p class="text-zinc-400 text-sm sm:text-base mt-3" data-i18n="menuSub">
+          Filter by category or heat intensity. Click any item to customize combo size, extra sauces, or adjust quantities.
+        </p>
+      </div>
+
+      <!-- Search & Spice Filter Bar -->
+      <div class="glass-panel rounded-2xl p-4 mb-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <!-- Search Input -->
+        <div class="relative flex-1">
+          <i class="fa-solid fa-magnifying-glass absolute top-1/2 -translate-y-1/2 left-4 rtl:left-auto rtl:right-4 text-zinc-400"></i>
+          <input
+            id="menu-search"
+            type="text"
+            placeholder="Search crispy burgers, spicy wings, sauces..."
+            class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl py-3 ps-11 pe-4 text-sm text-white placeholder-zinc-500 outline-none transition"
+          />
+        </div>
+
+        <!-- Spice Level Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span class="text-xs font-bold text-zinc-400 uppercase me-1 whitespace-nowrap" data-i18n="heatLabel">Heat:</span>
+          <button type="button" data-spice="all" class="spice-filter-btn active px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-fire text-white transition whitespace-nowrap">All Levels</button>
+          <button type="button" data-spice="mild" class="spice-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/5 hover:bg-white/10 text-zinc-300 transition whitespace-nowrap">Mild Classic</button>
+          <button type="button" data-spice="spicy" class="spice-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/5 hover:bg-white/10 text-zinc-300 transition whitespace-nowrap">🌶️ Spicy</button>
+          <button type="button" data-spice="inferno" class="spice-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/5 hover:bg-white/10 text-zinc-300 transition whitespace-nowrap">🔥 Inferno</button>
+        </div>
+      </div>
+
+      <!-- 7 Interactive Category Tabs -->
+      <div id="category-tabs" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-4 mb-8">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <!-- Menu Product Cards Grid -->
+      <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <!-- Empty Search State -->
+      <div id="menu-empty" class="hidden text-center py-16 glass-card rounded-3xl">
+        <i class="fa-solid fa-drumstick-bite text-4xl text-zinc-600 mb-3"></i>
+        <h3 class="font-display text-2xl text-white">No Matching Items Found</h3>
+        <p class="text-zinc-400 text-sm mt-1">Try resetting your search or selecting another spice level.</p>
+        <button id="reset-filters-btn" type="button" class="mt-4 px-5 py-2.5 rounded-xl bg-gradient-fire text-white text-xs font-bold">Reset All Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. SPECIAL OFFERS & PROMOS ==================== -->
+  <section id="offers" class="relative py-24 overflow-hidden">
+    <div class="ember-orb w-[500px] h-[500px] bg-flame/40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-gold block mb-2" data-i18n="offersTag">LIMITED TIME DROPS</span>
+          <h2 class="font-display text-4xl sm:text-6xl text-white" data-i18n="offersTitle">EXPLOSIVE <span class="text-gradient-fire">DEAL BUNDLES</span></h2>
+        </div>
+
+        <!-- Live Countdown Timer -->
+        <div class="glass-panel px-5 py-3.5 rounded-2xl border border-flame/30 flex items-center gap-4 self-start lg:self-auto">
+          <div class="text-xs font-bold uppercase tracking-wider text-zinc-300">
+            <i class="fa-solid fa-clock text-flame me-1.5"></i><span data-i18n="flashEnds">Flash Deals End In:</span>
+          </div>
+          <div class="flex items-center gap-2 font-display text-2xl text-white">
+            <span id="timer-hours" class="bg-obsidian px-2.5 py-1 rounded-lg border border-white/10 text-ember">04</span>:
+            <span id="timer-mins" class="bg-obsidian px-2.5 py-1 rounded-lg border border-white/10 text-ember">38</span>:
+            <span id="timer-secs" class="bg-obsidian px-2.5 py-1 rounded-lg border border-white/10 text-flame">59</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Cards Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Deal 1 -->
+        <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between border border-flame/30 group">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80"
+                alt="Mega Crunch Family Feast"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                onerror="this.src='https://placehold.co/700x450/18181F/FF2A4B?text=FAMILY+FEAST'"
+              />
+              <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-flame text-white text-xs font-black shadow-lg">SAVE 30%</div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-3xl text-white">MEGA CRUNCH FAMILY BUCKET</h3>
+              <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+                12 Pcs Signature Crispy Chicken, 2 Large Cajun Fries, 4 Honey Butter Biscuits, 4 Signature Dips &amp; 1.5L Drink.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5">
+            <div>
+              <span class="text-xs text-zinc-500 line-through block">$42.00</span>
+              <span class="font-display text-3xl text-gold">$29.40</span>
+            </div>
+            <button
+              type="button"
+              onclick="claimBundleOffer('offer-family', 'Mega Crunch Family Bucket (30% OFF)', 29.40, 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=400&q=80')"
+              class="magnetic-btn px-5 py-3 rounded-xl bg-gradient-fire text-white text-xs font-extrabold uppercase tracking-wider shadow-lg shadow-flame/30">
+              <i class="fa-solid fa-bag-shopping me-2"></i>Claim Deal
+            </button>
+          </div>
+        </div>
+
+        <!-- Deal 2 -->
+        <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between border border-ember/30 group">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80"
+                alt="BOGO Smash Chicken Burger"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                onerror="this.src='https://placehold.co/700x450/18181F/FF6B00?text=BOGO+BURGERS'"
+              />
+              <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-ember text-white text-xs font-black shadow-lg">BUY 1 GET 1 FREE</div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-3xl text-white">DOUBLE VOLCANO BURGER DUO</h3>
+              <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+                Two Double-Crunch Brioche Chicken Burgers stacked with aged cheddar, jalapeño slaw, and smoked comeback sauce.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5">
+            <div>
+              <span class="text-xs text-zinc-500 line-through block">$23.98</span>
+              <span class="font-display text-3xl text-gold">$13.99</span>
+            </div>
+            <button
+              type="button"
+              onclick="claimBundleOffer('offer-bogo', 'Double Volcano Burger Duo (BOGO)', 13.99, 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80')"
+              class="magnetic-btn px-5 py-3 rounded-xl bg-gradient-fire text-white text-xs font-extrabold uppercase tracking-wider shadow-lg shadow-ember/30">
+              <i class="fa-solid fa-bag-shopping me-2"></i>Claim Deal
+            </button>
+          </div>
+        </div>
+
+        <!-- Deal 3 -->
+        <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between border border-gold/30 group">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80"
+                alt="Late Night Inferno Wings Box"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                onerror="this.src='https://placehold.co/700x450/18181F/FBBF24?text=INFERNO+BOX'"
+              />
+              <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-gold text-obsidian text-xs font-black shadow-lg">PROMO: CRUNCH20</div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-3xl text-white">INFERNO WINGS &amp; STRIPS BOX</h3>
+              <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+                10 Fiery Nashville Wings + 6 Crispy Tenders + Loaded Cheese Fries + Blue Cheese &amp; Habanero Ranch dips.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5">
+            <div>
+              <span class="text-xs text-zinc-500 line-through block">$28.50</span>
+              <span class="font-display text-3xl text-gold">$21.99</span>
+            </div>
+            <button
+              type="button"
+              onclick="claimBundleOffer('offer-inferno', 'Inferno Wings & Strips Box', 21.99, 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=80')"
+              class="magnetic-btn px-5 py-3 rounded-xl bg-gradient-fire text-white text-xs font-extrabold uppercase tracking-wider shadow-lg shadow-flame/30">
+              <i class="fa-solid fa-bag-shopping me-2"></i>Claim Deal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. CUSTOMER REVIEWS SECTION ==================== -->
+  <section id="reviews" class="relative py-24 bg-charcoal/60 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ember block mb-2" data-i18n="revTag">VERIFIED CRAVINGS</span>
+          <h2 class="font-display text-4xl sm:text-6xl text-white" data-i18n="revTitle">WALL OF <span class="text-gradient-fire">CRUNCH LOVE</span></h2>
+        </div>
+
+        <button id="open-review-modal-btn" type="button" class="magnetic-btn px-6 py-3.5 rounded-2xl glass-panel hover:bg-white/10 border border-ember/40 text-white text-sm font-bold flex items-center gap-2.5 self-start md:self-auto">
+          <i class="fa-solid fa-pen-to-square text-ember"></i>
+          <span data-i18n="writeReview">Write a Review</span>
+        </button>
+      </div>
+
+      <!-- Reviews Grid -->
+      <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. CONTACT US & LOCATIONS SECTION ==================== -->
+  <section id="contact" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Left: Flagship Locations & Info -->
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-flame block mb-2" data-i18n="contactTag">VISIT OR CATER</span>
+            <h2 class="font-display text-4xl sm:text-5xl text-white" data-i18n="contactTitle">FIND YOUR NEAREST <span class="text-gradient-fire">FLAME HUB</span></h2>
+            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">
+              Open daily from 11:00 AM until 3:00 AM for late-night crunch emergencies, dine-in, drive-thru, and VIP event catering.
+            </p>
+          </div>
+
+          <!-- Interactive Branch Selector -->
+          <div class="space-y-3" id="branch-list">
+            <div class="glass-card p-5 rounded-2xl border border-ember/40">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-flame"></i> Downtown Flagship — Cairo
+                </h4>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[11px] font-bold">OPEN NOW</span>
+              </div>
+              <p class="text-xs text-zinc-400 mt-1.5">24 Nile Corniche Plaza, Zamalek District • +20 100 555 0199</p>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-ember"></i> Marina Walk Hub — Dubai
+                </h4>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[11px] font-bold">OPEN NOW</span>
+              </div>
+              <p class="text-xs text-zinc-400 mt-1.5">Pier 7 Promenade, Dubai Marina • +971 4 555 8820</p>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-gold"></i> Soho Crunch Kitchen — London
+                </h4>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[11px] font-bold">OPEN NOW</span>
+              </div>
+              <p class="text-xs text-zinc-400 mt-1.5">88 Wardour Street, Soho, London W1F • +44 20 7946 0921</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Contact / Catering Form -->
+        <div class="lg:col-span-7">
+          <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10">
+            <h3 class="font-display text-3xl text-white mb-2">SEND A MESSAGE OR CATERING REQUEST</h3>
+            <p class="text-zinc-400 text-sm mb-6">Planning a party, game night, or corporate feast? Our team responds within 15 minutes.</p>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-zinc-300 uppercase mb-1.5">Full Name *</label>
+                  <input type="text" required placeholder="Alex Mercer" class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none transition" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-zinc-300 uppercase mb-1.5">Phone / WhatsApp *</label>
+                  <input type="tel" required placeholder="+1 (555) 234-5678" class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none transition" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-zinc-300 uppercase mb-1.5">Email Address *</label>
+                  <input type="email" required placeholder="alex@example.com" class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none transition" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-zinc-300 uppercase mb-1.5">Inquiry Type</label>
+                  <select class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none transition">
+                    <option value="order">Order Support / Feedback</option>
+                    <option value="catering">Event &amp; Party Catering (20+ Guests)</option>
+                    <option value="franchise">Franchise Partnership</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-zinc-300 uppercase mb-1.5">Message *</label>
+                <textarea rows="4" required placeholder="Tell us about your event date, guest count, or question..." class="w-full bg-obsidian/80 border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none transition"></textarea>
+              </div>
+
+              <button type="submit" class="magnetic-btn w-full py-4 rounded-xl bg-gradient-fire text-white font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-flame/30">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane ms-2"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-charcoal border-t border-white/10 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <!-- Brand -->
+        <div class="space-y-4">
+          <a href="#home" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-fire flex items-center justify-center">
+              <i class="fa-solid fa-fire-flame-curved text-white text-lg"></i>
+            </div>
+            <span class="font-display text-2xl tracking-wide text-white">Maro<span class="text-ember">Crisp</span></span>
+          </a>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            Redefining crispy chicken with 24-hour buttermilk brining, 19 volcanic spices, and chef-crafted dipping sauces.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#contact" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-flame text-zinc-300 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#contact" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-flame text-zinc-300 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#contact" aria-label="X Twitter" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-flame text-zinc-300 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#contact" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-flame text-zinc-300 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-display text-xl text-white tracking-wider mb-4">NAVIGATION</h4>
+          <ul class="space-y-2.5 text-sm text-zinc-400">
+            <li><a href="#home" class="hover:text-ember transition">Home</a></li>
+            <li><a href="#story" class="hover:text-ember transition">Our Craft &amp; Story</a></li>
+            <li><a href="#menu" class="hover:text-ember transition">Full Menu</a></li>
+            <li><a href="#offers" class="hover:text-ember transition">Hot Combo Deals</a></li>
+            <li><a href="#reviews" class="hover:text-ember transition">Customer Reviews</a></li>
+          </ul>
+        </div>
+
+        <!-- Menu Categories -->
+        <div>
+          <h4 class="font-display text-xl text-white tracking-wider mb-4">POPULAR CRAVINGS</h4>
+          <ul class="space-y-2.5 text-sm text-zinc-400">
+            <li><a href="#menu" onclick="selectCategoryFromFooter('Crispy Chicken')" class="hover:text-ember transition">Crispy Fried Chicken</a></li>
+            <li><a href="#menu" onclick="selectCategoryFromFooter('Chicken Burger')" class="hover:text-ember transition">Brioche Chicken Burgers</a></li>
+            <li><a href="#menu" onclick="selectCategoryFromFooter('Spicy Wings')" class="hover:text-ember transition">Volcano Spicy Wings</a></li>
+            <li><a href="#menu" onclick="selectCategoryFromFooter('Chicken Meals')" class="hover:text-ember transition">Family Feast Boxes</a></li>
+            <li><a href="#menu" onclick="selectCategoryFromFooter('Sauces & Drinks')" class="hover:text-ember transition">Signature Lava Sauces</a></li>
+          </ul>
+        </div>
+
+        <!-- VIP Club Newsletter -->
+        <div>
+          <h4 class="font-display text-xl text-white tracking-wider mb-4">JOIN THE CRUNCH CLUB</h4>
+          <p class="text-zinc-400 text-sm mb-4">Get instant 20% OFF code <span class="text-gold font-bold">CRUNCH20</span> and secret menu drops.</p>
+          <form id="newsletter-form" class="flex gap-2">
+            <input type="email" required placeholder="Your email..." class="flex-1 bg-obsidian border border-white/10 focus:border-ember rounded-xl px-3.5 py-2.5 text-sm text-white outline-none" />
+            <button type="submit" class="px-4 py-2.5 rounded-xl bg-gradient-fire text-white font-bold text-sm hover:opacity-95 transition">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
+        <p>© 2026 MaroCrisp International Restaurants. All Rights Reserved.</p>
+        <div class="flex items-center gap-6">
+          <span>Privacy Policy</span>
+          <span>Terms of Service</span>
+          <span>Allergen Guide</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING ACTION BUTTONS (BACK TO TOP + QUICK SUPPORT) ==================== -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-3">
+    <!-- Quick Contact / WhatsApp Floating Button -->
+    <a href="#contact" aria-label="Quick Support & Contact" title="Quick Order Support" class="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-500/30 flex items-center justify-center text-xl transition-transform hover:scale-110">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Back To Top Button -->
+    <button id="back-to-top" type="button" aria-label="Back to Top" class="w-12 h-12 rounded-full glass-panel border border-white/15 hover:border-ember text-white shadow-xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110">
+      <i class="fa-solid fa-arrow-up text-ember"></i>
+    </button>
+  </div>
+
+  <!-- ==================== PRODUCT DETAILS & CUSTOMIZATION MODAL ==================== -->
+  <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card relative w-full max-w-2xl rounded-3xl overflow-hidden border border-white/15 shadow-2xl max-h-[92vh] flex flex-col">
+      <!-- Close button -->
+      <button id="close-product-modal" type="button" aria-label="Close modal" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-flame text-white flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="overflow-y-auto">
+        <!-- Product Banner Image -->
+        <div class="relative h-64 sm:h-72 w-full">
+          <img id="modal-img" src="" alt="Product preview" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent"></div>
+          <div class="absolute bottom-4 left-6 right-6 flex items-end justify-between">
+            <div>
+              <span id="modal-category" class="px-3 py-1 rounded-full bg-ember/20 border border-ember/40 text-ember text-xs font-bold uppercase"></span>
+              <h3 id="modal-title" class="font-display text-3xl sm:text-4xl text-white mt-1.5"></h3>
+            </div>
+            <div id="modal-spice-badge" class="px-3 py-1 rounded-xl bg-black/70 text-xs font-bold"></div>
+          </div>
+        </div>
+
+        <!-- Customization Body -->
+        <div class="p-6 sm:p-8 space-y-6">
+          <p id="modal-desc" class="text-zinc-300 text-sm leading-relaxed"></p>
+
+          <!-- Meal Size / Combo Option -->
+          <div>
+            <label class="block text-xs font-extrabold uppercase tracking-wider text-zinc-400 mb-2.5">Choose Style</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="cursor-pointer">
+                <input type="radio" name="meal-option" value="single" checked class="peer hidden" />
+                <div class="p-3.5 rounded-2xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 transition">
+                  <div class="font-bold text-sm text-white">À La Carte (Single)</div>
+                  <div class="text-xs text-zinc-400">Standard item only</div>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="meal-option" value="combo" class="peer hidden" />
+                <div class="p-3.5 rounded-2xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 transition">
+                  <div class="font-bold text-sm text-white flex items-center justify-between">
+                    <span>Make It a Combo</span>
+                    <span class="text-gold text-xs">+$3.50</span>
+                  </div>
+                  <div class="text-xs text-zinc-400">+ Cajun Fries &amp; Soft Drink</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Extra Dipping Sauces -->
+          <div>
+            <label class="block text-xs font-extrabold uppercase tracking-wider text-zinc-400 mb-2.5">Extra Signature Sauces (+$0.75 each)</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <label class="cursor-pointer flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/25 text-xs font-semibold">
+                <input type="checkbox" value="Flame Lava Dip" class="modal-sauce-cb accent-ember w-4 h-4" />
+                <span>Flame Lava Dip</span>
+              </label>
+              <label class="cursor-pointer flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/25 text-xs font-semibold">
+                <input type="checkbox" value="Truffle Garlic" class="modal-sauce-cb accent-ember w-4 h-4" />
+                <span>Truffle Garlic</span>
+              </label>
+              <label class="cursor-pointer flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/25 text-xs font-semibold">
+                <input type="checkbox" value="Smoked Honey" class="modal-sauce-cb accent-ember w-4 h-4" />
+                <span>Smoked Honey</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Quantity & Add to Cart Footer -->
+          <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3 bg-obsidian rounded-2xl p-1.5 border border-white/10">
+              <button id="modal-qty-dec" type="button" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-white font-bold transition">-</button>
+              <span id="modal-qty" class="w-8 text-center font-extrabold text-base">1</span>
+              <button id="modal-qty-inc" type="button" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-white font-bold transition">+</button>
+            </div>
+
+            <button id="modal-add-btn" type="button" class="flex-1 sm:flex-initial magnetic-btn px-8 py-4 rounded-2xl bg-gradient-fire text-white font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-flame/35">
+              <span>Add to Order • </span>
+              <span id="modal-total-price" class="ms-1 text-gold">$0.00</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE-OVER SHOPPING CART DRAWER ==================== -->
+  <div id="cart-drawer-backdrop" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm transition-opacity"></div>
+  <aside id="cart-drawer" aria-label="Shopping Cart" class="fixed top-0 right-0 rtl:right-auto rtl:left-0 z-50 h-full w-full max-w-md bg-charcoal border-s border-white/10 shadow-2xl transform translate-x-full rtl:-translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Cart Header -->
+    <div class="p-6 border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-fire flex items-center justify-center text-white">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl text-white tracking-wide" data-i18n="cartTitle">YOUR CRUNCH BAG</h3>
+          <p class="text-xs text-zinc-400"><span id="cart-header-count">0</span> items selected</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="clear-cart-btn" type="button" title="Clear Cart" class="text-xs text-zinc-400 hover:text-flame px-2.5 py-1.5 rounded-lg hover:bg-white/5 transition">Clear</button>
+        <button id="close-cart-btn" type="button" aria-label="Close Cart" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Items List -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+      <!-- Populated dynamically -->
+    </div>
+
+    <!-- Cart Footer & Totals -->
+    <div class="p-6 border-t border-white/10 bg-obsidian/90 space-y-4">
+      <!-- Promo Code Box -->
+      <div class="flex gap-2">
+        <input id="promo-input" type="text" placeholder="Promo code (try CRUNCH20)" class="flex-1 bg-charcoal border border-white/10 focus:border-ember rounded-xl px-3.5 py-2.5 text-xs text-white uppercase outline-none" />
+        <button id="apply-promo-btn" type="button" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-ember text-white text-xs font-bold transition">Apply</button>
+      </div>
+      <div id="promo-feedback" class="hidden text-xs font-semibold text-emerald-400"></div>
+
+      <!-- Price Breakdown -->
+      <div class="space-y-1.5 text-sm">
+        <div class="flex justify-between text-zinc-400">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div id="cart-discount-row" class="hidden justify-between text-emerald-400 font-semibold">
+          <span>Promo Discount (20%)</span>
+          <span id="cart-discount">-$0.00</span>
+        </div>
+        <div class="flex justify-between text-zinc-400">
+          <span>Express Delivery</span>
+          <span id="cart-delivery">$2.99</span>
+        </div>
+        <div class="flex justify-between text-white font-extrabold text-lg pt-2 border-t border-white/10">
+          <span>Total</span>
+          <span id="cart-total" class="text-gold">$0.00</span>
+        </div>
+      </div>
+
+      <button id="proceed-checkout-btn" type="button" disabled class="w-full py-4 rounded-2xl bg-gradient-fire disabled:opacity-40 disabled:cursor-not-allowed text-white font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-flame/30 hover:shadow-flame/50 transition">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right ms-2 rtl:rotate-180"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== CHECKOUT MODAL ==================== -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+    <div class="glass-card relative w-full max-w-lg rounded-3xl p-6 sm:p-8 border border-white/15 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <button id="close-checkout-modal" type="button" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-flame text-white flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="checkout-form-view">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-ember">EXPRESS ORDER</span>
+        <h3 class="font-display text-3xl text-white mt-1 mb-5">COMPLETE YOUR ORDER</h3>
+
+        <form id="checkout-form" class="space-y-4">
+          <!-- Fulfillment Toggle -->
+          <div class="grid grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input type="radio" name="fulfillment" value="delivery" checked class="peer hidden" />
+              <div class="p-3 rounded-xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 text-center text-xs font-bold">
+                <i class="fa-solid fa-motorcycle text-ember me-1.5"></i> Hot Delivery
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="fulfillment" value="pickup" class="peer hidden" />
+              <div class="p-3 rounded-xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 text-center text-xs font-bold">
+                <i class="fa-solid fa-store text-gold me-1.5"></i> Store Pickup
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Full Name *</label>
+            <input type="text" required placeholder="John Doe" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Mobile Number *</label>
+            <input type="tel" required placeholder="+1 555 987 6543" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Delivery Address / Branch *</label>
+            <input type="text" required placeholder="Apartment, Street, Neighborhood" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-3 text-sm text-white outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-zinc-400 uppercase mb-1.5">Payment Method</label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="cursor-pointer">
+                <input type="radio" name="payment" value="card" checked class="peer hidden" />
+                <div class="p-2.5 rounded-xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 text-center text-xs font-bold">
+                  <i class="fa-regular fa-credit-card block text-base mb-1"></i> Card
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="payment" value="apple" class="peer hidden" />
+                <div class="p-2.5 rounded-xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 text-center text-xs font-bold">
+                  <i class="fa-brands fa-apple-pay block text-base mb-1"></i> Apple Pay
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="payment" value="cash" class="peer hidden" />
+                <div class="p-2.5 rounded-xl border border-white/10 peer-checked:border-ember peer-checked:bg-ember/10 text-center text-xs font-bold">
+                  <i class="fa-solid fa-money-bill-wave block text-base mb-1"></i> Cash
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-obsidian/90 border border-white/10 flex items-center justify-between">
+            <span class="text-sm font-bold text-zinc-300">Total Payable:</span>
+            <span id="checkout-final-amount" class="font-display text-3xl text-gold">$0.00</span>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-fire text-white font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-flame/40">
+            Place Order Now <i class="fa-solid fa-fire ms-2"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Confirmation Receipt View -->
+      <div id="checkout-success-view" class="hidden text-center py-6 space-y-4">
+        <div class="w-20 h-20 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-4xl mx-auto animate-bounce">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="font-display text-4xl text-white">ORDER IN THE FRYER!</h3>
+        <p class="text-zinc-300 text-sm max-w-sm mx-auto">
+          Your order <span id="order-tracking-id" class="text-gold font-extrabold">#FC-8942</span> is being hand-breaded fresh right now. Estimated arrival: <strong class="text-white">22 mins</strong>.
+        </p>
+        <button id="done-order-btn" type="button" class="mt-4 px-8 py-3.5 rounded-xl bg-gradient-fire text-white font-bold text-sm">
+          Back to MaroCrisp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== WRITE A REVIEW MODAL ==================== -->
+  <div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card relative w-full max-w-md rounded-3xl p-6 sm:p-8 border border-white/15">
+      <button id="close-review-modal" type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-flame text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 class="font-display text-3xl text-white mb-1">RATE YOUR CRUNCH</h3>
+      <p class="text-zinc-400 text-xs mb-5">Share your experience with the MaroCrisp community.</p>
+
+      <form id="review-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Your Name *</label>
+          <input id="rev-name" type="text" required placeholder="e.g., Omar Khaled" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-2.5 text-sm text-white outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Favorite Item Ordered</label>
+          <input id="rev-item" type="text" placeholder="e.g., Inferno Volcano Burger" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-2.5 text-sm text-white outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Rating</label>
+          <select id="rev-rating" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-2.5 text-sm text-gold font-bold outline-none">
+            <option value="5">★★★★★ (5.0 - Mind-Blowing)</option>
+            <option value="4">★★★★☆ (4.0 - Super Crispy)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase mb-1">Review *</label>
+          <textarea id="rev-text" rows="3" required placeholder="How was the crunch, heat, and sauce?" class="w-full bg-obsidian border border-white/10 focus:border-ember rounded-xl px-4 py-2.5 text-sm text-white outline-none"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-fire text-white font-extrabold text-sm uppercase tracking-wider">Publish Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toast-container" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+  <script>
+    // =========================================================================
+    // 1. PRODUCT DATA CATALOG (16 Curated Items across all 7 Categories)
+    // =========================================================================
+    const CATEGORIES = [
+      { id: 'All', en: 'All Menu', ar: 'كل القائمة', icon: 'fa-utensils' },
+      { id: 'Crispy Chicken', en: 'Crispy Chicken', ar: 'فراخ مقرمشة', icon: 'fa-drumstick-bite' },
+      { id: 'Chicken Burger', en: 'Chicken Burger', ar: 'برجر فراخ', icon: 'fa-burger' },
+      { id: 'Chicken Strips', en: 'Chicken Strips', ar: 'تشيكن ستربس', icon: 'fa-bacon' },
+      { id: 'Spicy Wings', en: 'Spicy Wings', ar: 'أجنحة حارة', icon: 'fa-fire' },
+      { id: 'Chicken Meals', en: 'Chicken Meals', ar: 'وجبات كاملة', icon: 'fa-box-open' },
+      { id: 'Fries & Sides', en: 'Fries & Sides', ar: 'بطاطس ومقبلات', icon: 'fa-bowl-food' },
+      { id: 'Sauces & Drinks', en: 'Sauces & Drinks', ar: 'صوصات ومشروبات', icon: 'fa-mug-hot' },
+    ];
+
+    const MENU_ITEMS = [
+      // CRISPY CHICKEN
+      {
+        id: 'cc-1',
+        name: 'Signature 4-Pc Gold Crunch',
+        nameAr: '4 قطع فراخ مقرمشة ذهبية',
+        category: 'Crispy Chicken',
+        price: 12.99,
+        spice: 'mild',
+        calories: '840 kcal',
+        bestSeller: true,
+        badge: 'MOST ORDERED',
+        desc: 'Four bone-in cuts marinated 24 hours in spiced buttermilk and double-dredged in our 19-spice micro-flake crust.',
+        img: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'cc-2',
+        name: 'Nashville Lava Hot Drumsticks (4 Pc)',
+        nameAr: 'دبابيس ناشفيل لافا الحارة',
+        category: 'Crispy Chicken',
+        price: 13.49,
+        spice: 'inferno',
+        calories: '910 kcal',
+        bestSeller: false,
+        badge: 'INFERNO HEAT',
+        desc: 'Extra-crunchy drumsticks brushed with smoky ghost-pepper chili oil, brown sugar, and dill pickle chips.',
+        img: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=800&q=80'
+      },
+      // CHICKEN BURGER
+      {
+        id: 'cb-1',
+        name: 'The Volcano Double Crunch Burger',
+        nameAr: 'برجر فولكانو دبل كرانش',
+        category: 'Chicken Burger',
+        price: 11.99,
+        spice: 'spicy',
+        calories: '790 kcal',
+        bestSeller: true,
+        badge: '#1 BURGER',
+        desc: 'Towering shatter-crisp chicken thigh, aged sharp cheddar, pickled jalapeños, and smoked habanero aioli on toasted brioche.',
+        img: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'cb-2',
+        name: 'Truffle Honey Butter Brioche',
+        nameAr: 'برجر ترافل هوني باتر',
+        category: 'Chicken Burger',
+        price: 12.49,
+        spice: 'mild',
+        calories: '740 kcal',
+        bestSeller: false,
+        badge: 'CHEF PICK',
+        desc: 'Golden buttermilk breast glazed in whipped wildflower honey butter, black truffle mayo, and crispy shallots.',
+        img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'cb-3',
+        name: 'BBQ Bacon Smokehouse Stack',
+        nameAr: 'برجر باربكيو سموك هاوس',
+        category: 'Chicken Burger',
+        price: 13.29,
+        spice: 'mild',
+        calories: '860 kcal',
+        bestSeller: false,
+        badge: '',
+        desc: 'Crispy chicken fillet crowned with beef bacon strips, onion rings, smoked gouda, and hickory bourbon BBQ glaze.',
+        img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80'
+      },
+      // CHICKEN STRIPS
+      {
+        id: 'cs-1',
+        name: '5-Pc Hand-Breaded Tender Strips',
+        nameAr: '5 قطع تشيكن ستربس مقرمش',
+        category: 'Chicken Strips',
+        price: 10.49,
+        spice: 'mild',
+        calories: '620 kcal',
+        bestSeller: false,
+        badge: 'ULTRA JUICY',
+        desc: 'All-white-meat inner tenderloins with extra craggy crunch edges. Served with choice of 2 signature dipping sauces.',
+        img: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'cs-2',
+        name: 'Spicy Cayenne Glazed Tenders (6 Pc)',
+        nameAr: '6 قطع ستربس كايين حار',
+        category: 'Chicken Strips',
+        price: 11.79,
+        spice: 'spicy',
+        calories: '690 kcal',
+        bestSeller: false,
+        badge: 'SPICY',
+        desc: 'Crispy tenderloin strips tossed in roasted cayenne-garlic butter and dusted with toasted sesame & scallions.',
+        img: 'https://images.unsplash.com/photo-1619881589316-56c7f9e6b587?auto=format&fit=crop&w=800&q=80'
+      },
+      // SPICY WINGS
+      {
+        id: 'sw-1',
+        name: '10-Pc Inferno Ghost Pepper Wings',
+        nameAr: '10 قطع أجنحة جوست بيبر الحارة',
+        category: 'Spicy Wings',
+        price: 13.99,
+        spice: 'inferno',
+        calories: '880 kcal',
+        bestSeller: true,
+        badge: 'FAN FAVORITE',
+        desc: 'Double-fried jumbo wings lacquered in fermented habanero & ghost chili glaze with cooling buttermilk ranch.',
+        img: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'sw-2',
+        name: 'Korean Gochujang Crunch Wings (8 Pc)',
+        nameAr: '8 قطع أجنحة كوريان جوتشوجانج',
+        category: 'Spicy Wings',
+        price: 12.29,
+        spice: 'spicy',
+        calories: '760 kcal',
+        bestSeller: false,
+        badge: 'SWEET HEAT',
+        desc: 'Glass-crisp wings coated in sticky sweet-spicy red chili paste, roasted garlic, and crushed toasted peanuts.',
+        img: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80'
+      },
+      // CHICKEN MEALS
+      {
+        id: 'cm-1',
+        name: 'The Royal Crunch Box Meal',
+        nameAr: 'بوكس رويال كرانش المتكامل',
+        category: 'Chicken Meals',
+        price: 16.99,
+        spice: 'spicy',
+        calories: '1180 kcal',
+        bestSeller: false,
+        badge: 'BEST VALUE',
+        desc: '2 Pcs Crispy Chicken + 1 Mini Crunch Slider + Cajun Waffle Fries + Creamy Coleslaw + Brioche Bun + Drink.',
+        img: 'https://images.unsplash.com/photo-1513639776629-7b61b0ac49cb?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'cm-2',
+        name: '8-Pc Squad Feast Bucket',
+        nameAr: 'باكت السكواد 8 قطع',
+        category: 'Chicken Meals',
+        price: 24.99,
+        spice: 'mild',
+        calories: '2150 kcal',
+        bestSeller: false,
+        badge: 'SHARING',
+        desc: '8 Pcs Signature Fried Chicken, 4 Crispy Strips, 2 Large Fries, 4 Honey Biscuits, and 4 Signature Sauces.',
+        img: 'https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&fit=crop&w=800&q=80'
+      },
+      // FRIES & SIDES
+      {
+        id: 'fs-1',
+        name: 'Loaded Volcano Cheese & Chicken Fries',
+        nameAr: 'بطاطس فولكانو بالجبنة والفراخ',
+        category: 'Fries & Sides',
+        price: 7.99,
+        spice: 'spicy',
+        calories: '680 kcal',
+        bestSeller: false,
+        badge: 'LOADED',
+        desc: 'Skin-on spiced fries smothered in molten aged cheddar sauce, diced crispy chicken bites, jalapeños & lava drizzle.',
+        img: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'fs-2',
+        name: 'Truffle Parmesan Waffle Fries',
+        nameAr: 'بطاطس وافل بالبارميزان والترافل',
+        category: 'Fries & Sides',
+        price: 5.49,
+        spice: 'mild',
+        calories: '490 kcal',
+        bestSeller: false,
+        badge: '',
+        desc: 'Crisscross golden potato waffles tossed in white truffle oil, shaved 24-month Parmigiano, and cracked black pepper.',
+        img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'fs-3',
+        name: 'Smoked Cheddar Mac & Crunch',
+        nameAr: 'ماك أند تشيز مدخن مقرمش',
+        category: 'Fries & Sides',
+        price: 5.99,
+        spice: 'mild',
+        calories: '530 kcal',
+        bestSeller: false,
+        badge: '',
+        desc: 'Velvety three-cheese macaroni baked under a toasted garlic-herb panko crust.',
+        img: 'https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?auto=format&fit=crop&w=800&q=80'
+      },
+      // SAUCES & DRINKS
+      {
+        id: 'sd-1',
+        name: 'Signature Sauce Flight (4 Dips)',
+        nameAr: 'تشكيلة 4 صوصات فليم كرانش',
+        category: 'Sauces & Drinks',
+        price: 3.49,
+        spice: 'spicy',
+        calories: '290 kcal',
+        bestSeller: false,
+        badge: 'MUST TRY',
+        desc: 'Includes Flame Lava Aioli, Smoked Honey Mustard, Black Truffle Ranch, and Nashville Chili Jam.',
+        img: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        id: 'sd-2',
+        name: 'Blood Orange & Mint Fizz',
+        nameAr: 'سباركلينج برتقال أحمر ونعناع',
+        category: 'Sauces & Drinks',
+        price: 4.29,
+        spice: 'mild',
+        calories: '140 kcal',
+        bestSeller: false,
+        badge: 'REFRESHING',
+        desc: 'Sparkling Sicilian blood orange refresher muddled with fresh garden mint and crushed ice to cool the heat.',
+        img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80'
+      }
+    ];
+
+    // =========================================================================
+    // 2. BILINGUAL DICTIONARY (EN / AR)
+    // =========================================================================
+    const I18N = {
+      en: {
+        brandSub: 'Artisan Fried Chicken',
+        navHome: 'Home',
+        navStory: 'Our Story',
+        navMenu: 'Menu',
+        navBest: 'Best Sellers',
+        navOffers: 'Special Offers',
+        navReviews: 'Reviews',
+        navContact: 'Contact',
+        orderNow: 'Order Now',
+        heroBadge: '24-HR BUTTERMILK BRINED • DOUBLE HAND-BREADED',
+        heroTitle1: 'CRUNCH INTO',
+        heroTitle2: 'GREATNESS',
+        heroDesc: 'Engineered for maximum shatter-crisp perfection. Pasture-raised chicken marinated in 19 fiery botanicals, pressure-seared to golden glory, and paired with our signature smoked habanero & truffle honey glazes.',
+        heroCtaPrimary: 'Explore Full Menu',
+        heroCtaSecondary: 'Hot Combo Deals',
+        stat1: 'Secret Spices',
+        stat2: '14,800+ Reviews',
+        stat3: 'Hot Express Delivery',
+        floatSpiceTitle: 'Ghost Chili Glaze',
+        floatSpiceSub: 'Smoky Heat Level 9/10',
+        floatFriesTitle: 'Truffle Cajun Fries',
+        floatFresh: 'Fresh Never Frozen',
+        storyTag: 'THE MaroCrisp OBSESSION',
+        storyHeadline: 'NOT FAST FOOD. <span class="text-gradient-fire">CRUNCH ARCHITECTURE.</span>',
+        storyP1: 'Born from a late-night culinary lab obsessed with solving fried chicken\'s greatest flaw—sogginess—MaroCrisp pioneered a dual-temperature pressure-fry method paired with 19 roasted spices, smoked paprika, and aged cayenne.',
+        storyP2: 'Every fillet, wing, and drumstick is hand-tossed to order in small batches. Zero heat lamps. Zero frozen shortcuts. Just pure, shatteringly crisp gold sealed over tender, juicy chicken.',
+        bestTag: 'HALL OF FAME',
+        bestTitle: 'CROWD <span class="text-gradient-fire">FAVORITES</span>',
+        bestSub: 'Our highest-rated, most-reordered icons. Hover to inspect in 3D or add straight to your bag.',
+        menuTag: 'CRAFTED TO ORDER',
+        menuTitle: 'THE <span class="text-gradient-fire">MaroCrisp</span> MENU',
+        menuSub: 'Filter by category or heat intensity. Click any item to customize combo size, extra sauces, or adjust quantities.',
+        heatLabel: 'Heat:',
+        offersTag: 'LIMITED TIME DROPS',
+        offersTitle: 'EXPLOSIVE <span class="text-gradient-fire">DEAL BUNDLES</span>',
+        flashEnds: 'Flash Deals End In:',
+        revTag: 'VERIFIED CRAVINGS',
+        revTitle: 'WALL OF <span class="text-gradient-fire">CRUNCH LOVE</span>',
+        writeReview: 'Write a Review',
+        contactTag: 'VISIT OR CATER',
+        contactTitle: 'FIND YOUR NEAREST <span class="text-gradient-fire">FLAME HUB</span>',
+        cartTitle: 'YOUR CRUNCH BAG',
+      },
+      ar: {
+        brandSub: 'فراخ مقرمشة بمعايير عالمية',
+        navHome: 'الرئيسية',
+        navStory: 'قصتنا',
+        navMenu: 'قائمة الطعام',
+        navBest: 'الأكثر مبيعاً',
+        navOffers: 'العروض الخاصة',
+        navReviews: 'آراء العملاء',
+        navContact: 'تواصل معنا',
+        orderNow: 'اطلب الآن',
+        heroBadge: 'تتبيلة لبن رائب 24 ساعة • قرمشة مزدوجة طازجة',
+        heroTitle1: 'اقرمش نحو',
+        heroTitle2: 'العظمة',
+        heroDesc: 'مصممة لأقصى درجات القرمشة الذهبية. دجاج طازج متبل بـ 19 نوعاً من التوابل النارية، مقلي بتقنية الضغط الحراري ومقدم مع صوصات الهابانيرو المدخن وعسل الترافل.',
+        heroCtaPrimary: 'استكشف المنيو الكامل',
+        heroCtaSecondary: 'عروض التوفير النارية',
+        stat1: 'توابل سرية',
+        stat2: '+14,800 تقييم',
+        stat3: 'توصيل ساخن سريع',
+        floatSpiceTitle: 'صوص الفلفل الشبح',
+        floatSpiceSub: 'حرارة مدخنة 9/10',
+        floatFriesTitle: 'بطاطس ترافل كيجن',
+        floatFresh: 'طازج يومياً 100%',
+        storyTag: 'هوس القرمشة المثالية',
+        storyHeadline: 'ليست وجبات سريعة. <span class="text-gradient-fire">هندسة القرمشة.</span>',
+        storyP1: 'انطلقت فليم كرانش من شغف ابتكار دجاج مقلي يحافظ على قرمشته الذهبية دون أي طراوة، باستخدام القلي المزدوج وخلطة 19 بهاراً محمصاً.',
+        storyP2: 'كل قطعة تُحضّر وتُقلى طازجة عند الطلب مباشرة. بدون سخانات انتظار أو تجميد، لتصلك ساخنة ومقرمشة من الخارج وطرية من الداخل.',
+        bestTag: 'قاعة المشاهير',
+        bestTitle: 'الأكثر <span class="text-gradient-fire">طلباً وشهرة</span>',
+        bestSub: 'الأصناف الأعلى تقييماً والأكثر طلباً من عشاق فليم كرانش. أضفها مباشرة إلى سلتك.',
+        menuTag: 'تُحضّر طازجة عند الطلب',
+        menuTitle: 'قائمة <span class="text-gradient-fire">فليم كرانش</span>',
+        menuSub: 'اختر التصنيف أو مستوى الحرارة، واضغط على أي وجبة لتخصيص الحجم والصوصات الإضافية.',
+        heatLabel: 'الحرارة:',
+        offersTag: 'عروض لفترة محدودة',
+        offersTitle: 'باقات <span class="text-gradient-fire">التوفير النارية</span>',
+        flashEnds: 'ينتهي العرض خلال:',
+        revTag: 'تجارب حقيقية',
+        revTitle: 'آراء <span class="text-gradient-fire">عشاق القرمشة</span>',
+        writeReview: 'أضف تقييمك',
+        contactTag: 'فروعنا والحفلات',
+        contactTitle: 'اكتشف أقرب <span class="text-gradient-fire">فرع إليك</span>',
+        cartTitle: 'سلة مشترياتك',
+      }
+    };
+
+    // =========================================================================
+    // 3. STATE MANAGEMENT (Cart persisted in localStorage, Filters, Reviews)
+    // =========================================================================
+    let currentLang = 'en';
+    let selectedCategory = 'All';
+    let selectedSpice = 'all';
+    let searchQuery = '';
+    let promoDiscountApplied = false;
+    let activeModalProduct = null;
+    let modalQuantity = 1;
+
+    // Load persisted cart from localStorage
+    let cart = [];
+    try {
+      const savedCart = localStorage.getItem('MaroCrisp_cart_v1');
+      if (savedCart) cart = JSON.parse(savedCart);
+    } catch (e) {
+      cart = [];
+    }
+
+    // Initial Reviews
+    let reviews = [
+      {
+        name: 'Marcus Vance',
+        item: 'The Volcano Double Crunch Burger',
+        rating: 5,
+        text: 'Hands down the loudest crunch I have ever heard from a chicken burger. Even after a 20-minute delivery, the crust stayed shatteringly crisp and juicy inside!',
+        date: '2 days ago'
+      },
+      {
+        name: 'Layla Al-Mansoor',
+        item: 'Signature 4-Pc Gold Crunch',
+        rating: 5,
+        text: 'The 24-hour buttermilk marinade makes a massive difference. Pair it with the Truffle Garlic and Flame Lava dip—pure perfection.',
+        date: '5 days ago'
+      },
+      {
+        name: 'Devon Brooks',
+        item: '10-Pc Inferno Ghost Pepper Wings',
+        rating: 5,
+        text: 'Finally a spicy wing place that brings real smoky flavor alongside serious heat. The Blood Orange Fizz cools the palate right down.',
+        date: '1 week ago'
+      }
+    ];
+
+    function saveCart() {
+      try {
+        localStorage.setItem('MaroCrisp_cart_v1', JSON.stringify(cart));
+      } catch (e) {
+        console.warn('Could not save cart to localStorage');
+      }
+    }
+
+    // =========================================================================
+    // 4. PRELOADER & AMBIENT EMBER CANVAS PARTICLES
+    // =========================================================================
+    window.addEventListener('load', () => {
+      const bar = document.getElementById('preloader-bar');
+      const preloader = document.getElementById('preloader');
+      if (bar) bar.style.width = '100%';
+      setTimeout(() => {
+        if (preloader) preloader.classList.add('loaded');
+        initGSAPAnimations();
+      }, 650);
+    });
+
+    // Ambient Floating Sparks/Embers Canvas
+    (function initEmberParticles() {
+      const canvas = document.getElementById('ember-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = Array.from({ length: 34 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2.2 + 0.6,
+        vy: -(Math.random() * 0.65 + 0.2),
+        vx: (Math.random() - 0.5) * 0.35,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: Math.random() > 0.45 ? '#FF6B00' : '#FF2A4B'
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // =========================================================================
+    // 5. HERO PARALLAX, 3D CARD TILT & MAGNETIC BUTTONS
+    // =========================================================================
+    const cursorGlow = document.getElementById('cursor-glow');
+    const heroStage = document.getElementById('hero-parallax-stage');
+    const heroDish = document.getElementById('hero-3d-dish');
+
+    document.addEventListener('mousemove', (e) => {
+      if (cursorGlow) {
+        cursorGlow.style.left = `${e.clientX}px`;
+        cursorGlow.style.top = `${e.clientY}px`;
+      }
+
+      if (heroStage && heroDish) {
+        const rect = heroStage.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const xNorm = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+          const yNorm = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+          heroDish.style.transform = `perspective(1000px) rotateY(${xNorm * 8}deg) rotateX(${-yNorm * 8}deg)`;
+
+          document.querySelectorAll('.parallax-layer').forEach((layer) => {
+            const depth = parseFloat(layer.getAttribute('data-depth') || '20');
+            layer.style.transform = `translate3d(${xNorm * depth}px, ${yNorm * depth}px, 0)`;
+          });
+        }
+      }
+    });
+
+    // Attach 3D tilt hover effect to cards dynamically
+    function attach3DTilt(containerSelector) {
+      document.querySelectorAll(containerSelector).forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0px)';
+        });
+      });
+    }
+
+    // =========================================================================
+    // 6. RENDER BEST SELLERS, CATEGORY TABS & MENU GRID
+    // =========================================================================
+    function getSpiceBadgeHTML(spice) {
+      if (spice === 'inferno') {
+        return `<span class="px-2.5 py-1 rounded-lg bg-flame/20 border border-flame/40 text-flame text-[11px] font-extrabold">🔥 Inferno</span>`;
+      }
+      if (spice === 'spicy') {
+        return `<span class="px-2.5 py-1 rounded-lg bg-ember/20 border border-ember/40 text-ember text-[11px] font-extrabold">🌶️ Spicy</span>`;
+      }
+      return `<span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold">Classic</span>`;
+    }
+
+    function renderBestSellers() {
+      const container = document.getElementById('bestsellers-grid');
+      if (!container) return;
+      const topItems = MENU_ITEMS.filter((item) => item.bestSeller);
+
+      container.innerHTML = topItems
+        .map(
+          (item) => `
+          <div class="bestseller-card glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300">
+            <div>
+              <div class="relative h-64 overflow-hidden cursor-pointer" onclick="openProductModal('${item.id}')">
+                <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/600x500/18181F/FF6B00?text=MaroCrisp'" />
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+                <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-fire text-white text-[11px] font-black tracking-wider shadow-lg">${item.badge}</span>
+                <div class="absolute bottom-3 right-3">${getSpiceBadgeHTML(item.spice)}</div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between text-xs text-zinc-400 mb-1">
+                  <span>${item.category}</span>
+                  <span>${item.calories}</span>
+                </div>
+                <h3 onclick="openProductModal('${item.id}')" class="font-display text-2xl sm:text-3xl text-white hover:text-ember cursor-pointer transition">
+                  ${currentLang === 'ar' ? item.nameAr : item.name}
+                </h3>
+                <p class="text-zinc-400 text-xs sm:text-sm mt-2 line-clamp-2 leading-relaxed">${item.desc}</p>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-3 border-t border-white/5 flex items-center justify-between gap-3">
+              <div class="font-display text-3xl text-gold">$${item.price.toFixed(2)}</div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openProductModal('${item.id}')" class="px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-bold border border-white/10 transition">
+                  Customize
+                </button>
+                <button type="button" onclick="quickAddToCart('${item.id}')" class="magnetic-btn px-4 py-2.5 rounded-xl bg-gradient-fire text-white text-xs font-extrabold shadow-lg shadow-flame/25">
+                  <i class="fa-solid fa-plus me-1.5"></i>Add
+                </button>
+              </div>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+
+      attach3DTilt('.bestseller-card');
+    }
+
+    function renderCategoryTabs() {
+      const container = document.getElementById('category-tabs');
+      if (!container) return;
+
+      container.innerHTML = CATEGORIES.map((cat) => {
+        const isActive = selectedCategory === cat.id;
+        return `
+          <button
+            type="button"
+            onclick="setCategory('${cat.id}')"
+            class="px-5 py-3 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2 whitespace-nowrap transition-all ${
+              isActive
+                ? 'bg-gradient-fire text-white shadow-lg shadow-flame/30 scale-[1.02]'
+                : 'glass-panel text-zinc-300 hover:text-white hover:bg-white/10'
+            }">
+            <i class="fa-solid ${cat.icon} ${isActive ? 'text-white' : 'text-ember'}"></i>
+            <span>${currentLang === 'ar' ? cat.ar : cat.en}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderMenuGrid() {
+      const grid = document.getElementById('menu-grid');
+      const emptyState = document.getElementById('menu-empty');
+      if (!grid) return;
+
+      const filtered = MENU_ITEMS.filter((item) => {
+        const matchesCat = selectedCategory === 'All' || item.category === selectedCategory;
+        const matchesSpice = selectedSpice === 'all' || item.spice === selectedSpice;
+        const q = searchQuery.trim().toLowerCase();
+        const matchesQuery =
+          !q ||
+          item.name.toLowerCase().includes(q) ||
+          item.nameAr.includes(q) ||
+          item.desc.toLowerCase().includes(q) ||
+          item.category.toLowerCase().includes(q);
+        return matchesCat && matchesSpice && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = filtered
+        .map(
+          (item) => `
+          <div class="menu-card glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+            <div>
+              <div class="relative h-48 overflow-hidden cursor-pointer" onclick="openProductModal('${item.id}')">
+                <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/500x400/18181F/FF2A4B?text=MaroCrisp'" />
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent"></div>
+                ${
+                  item.badge
+                    ? `<span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-md bg-black/75 border border-white/15 text-[10px] font-extrabold text-gold tracking-wider">${item.badge}</span>`
+                    : ''
+                }
+                <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                  <span class="text-[11px] font-bold text-zinc-300">${item.calories}</span>
+                  ${getSpiceBadgeHTML(item.spice)}
+                </div>
+              </div>
+
+              <div class="p-5">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-ember">${item.category}</span>
+                <h3 onclick="openProductModal('${item.id}')" class="font-display text-2xl text-white mt-0.5 hover:text-ember cursor-pointer transition leading-tight">
+                  ${currentLang === 'ar' ? item.nameAr : item.name}
+                </h3>
+                <p class="text-zinc-400 text-xs mt-2 line-clamp-2 leading-relaxed">${item.desc}</p>
+              </div>
+            </div>
+
+            <div class="px-5 pb-5 pt-3 border-t border-white/5 flex items-center justify-between gap-2">
+              <span class="font-display text-2xl text-gold">$${item.price.toFixed(2)}</span>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="openProductModal('${item.id}')" title="Customize Options" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white transition">
+                  <i class="fa-solid fa-sliders text-xs"></i>
+                </button>
+                <button type="button" onclick="quickAddToCart('${item.id}')" class="magnetic-btn px-4 py-2.5 rounded-xl bg-gradient-fire text-white text-xs font-extrabold shadow-md shadow-flame/25">
+                  <i class="fa-solid fa-cart-plus me-1.5"></i>Add
+                </button>
+              </div>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+
+      attach3DTilt('.menu-card');
+    }
+
+    function setCategory(catId) {
+      selectedCategory = catId;
+      renderCategoryTabs();
+      renderMenuGrid();
+    }
+
+    window.selectCategoryFromFooter = function (catId) {
+      setCategory(catId);
+    };
+
+    // =========================================================================
+    // 7. PRODUCT CUSTOMIZATION MODAL LOGIC
+    // =========================================================================
+    const productModal = document.getElementById('product-modal');
+
+    window.openProductModal = function (productId) {
+      const item = MENU_ITEMS.find((p) => p.id === productId);
+      if (!item) return;
+
+      activeModalProduct = item;
+      modalQuantity = 1;
+
+      document.getElementById('modal-img').src = item.img;
+      document.getElementById('modal-category').textContent = item.category;
+      document.getElementById('modal-title').textContent = currentLang === 'ar' ? item.nameAr : item.name;
+      document.getElementById('modal-desc').textContent = item.desc;
+      document.getElementById('modal-spice-badge').innerHTML = getSpiceBadgeHTML(item.spice);
+      document.getElementById('modal-qty').textContent = '1';
+
+      // Reset radios & checkboxes
+      document.querySelector('input[name="meal-option"][value="single"]').checked = true;
+      document.querySelectorAll('.modal-sauce-cb').forEach((cb) => (cb.checked = false));
+
+      updateModalPrice();
+      productModal.classList.remove('hidden');
+      productModal.classList.add('flex');
+    };
+
+    function updateModalPrice() {
+      if (!activeModalProduct) return;
+      const isCombo = document.querySelector('input[name="meal-option"]:checked')?.value === 'combo';
+      const checkedSauces = document.querySelectorAll('.modal-sauce-cb:checked').length;
+      const unitPrice = activeModalProduct.price + (isCombo ? 3.5 : 0) + checkedSauces * 0.75;
+      const total = unitPrice * modalQuantity;
+      document.getElementById('modal-total-price').textContent = `$${total.toFixed(2)}`;
+    }
+
+    document.querySelectorAll('input[name="meal-option"], .modal-sauce-cb').forEach((el) => {
+      el.addEventListener('change', updateModalPrice);
+    });
+
+    document.getElementById('modal-qty-inc').addEventListener('click', () => {
+      modalQuantity++;
+      document.getElementById('modal-qty').textContent = modalQuantity;
+      updateModalPrice();
+    });
+
+    document.getElementById('modal-qty-dec').addEventListener('click', () => {
+      if (modalQuantity > 1) {
+        modalQuantity--;
+        document.getElementById('modal-qty').textContent = modalQuantity;
+        updateModalPrice();
+      }
+    });
+
+    document.getElementById('modal-add-btn').addEventListener('click', () => {
+      if (!activeModalProduct) return;
+      const isCombo = document.querySelector('input[name="meal-option"]:checked')?.value === 'combo';
+      const sauces = Array.from(document.querySelectorAll('.modal-sauce-cb:checked')).map((cb) => cb.value);
+      const unitPrice = activeModalProduct.price + (isCombo ? 3.5 : 0) + sauces.length * 0.75;
+
+      const variantNotes = [isCombo ? 'Combo Meal' : 'Single', ...sauces].join(' • ');
+      const cartItemKey = `${activeModalProduct.id}-${variantNotes}`;
+
+      addItemToCart({
+        key: cartItemKey,
+        id: activeModalProduct.id,
+        name: currentLang === 'ar' ? activeModalProduct.nameAr : activeModalProduct.name,
+        variant: variantNotes,
+        price: unitPrice,
+        qty: modalQuantity,
+        img: activeModalProduct.img
+      });
+
+      closeProductModal();
+    });
+
+    function closeProductModal() {
+      productModal.classList.add('hidden');
+      productModal.classList.remove('flex');
+    }
+
+    document.getElementById('close-product-modal').addEventListener('click', closeProductModal);
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) closeProductModal();
+    });
+
+    // =========================================================================
+    // 8. SHOPPING CART ENGINE (Add, Remove, Qty +/-, Promo, Persistence)
+    // =========================================================================
+    window.quickAddToCart = function (productId) {
+      const item = MENU_ITEMS.find((p) => p.id === productId);
+      if (!item) return;
+
+      addItemToCart({
+        key: `${item.id}-Single`,
+        id: item.id,
+        name: currentLang === 'ar' ? item.nameAr : item.name,
+        variant: 'Single',
+        price: item.price,
+        qty: 1,
+        img: item.img
+      });
+    };
+
+    window.claimBundleOffer = function (offerId, title, price, img) {
+      addItemToCart({
+        key: offerId,
+        id: offerId,
+        name: title,
+        variant: 'Special Promo Bundle',
+        price: price,
+        qty: 1,
+        img: img
+      });
+      openCartDrawer();
+    };
+
+    function addItemToCart(newItem) {
+      const existing = cart.find((c) => c.key === newItem.key);
+      if (existing) {
+        existing.qty += newItem.qty;
+      } else {
+        cart.push(newItem);
+      }
+
+      saveCart();
+      updateCartUI();
+      showToast(`Added "${newItem.name}" to your bag!`);
+
+      // Bump navbar cart badge
+      const badge = document.getElementById('nav-cart-badge');
+      if (badge) {
+        badge.classList.remove('cart-bump');
+        void badge.offsetWidth;
+        badge.classList.add('cart-bump');
+      }
+    }
+
+    window.updateCartItemQty = function (index, delta) {
+      if (!cart[index]) return;
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      saveCart();
+      updateCartUI();
+    };
+
+    window.removeCartItem = function (index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartUI();
+    };
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const discount = promoDiscountApplied ? subtotal * 0.2 : 0;
+      const delivery = subtotal > 0 ? 2.99 : 0;
+      const grandTotal = Math.max(0, subtotal - discount + delivery);
+
+      document.getElementById('nav-cart-badge').textContent = totalItems;
+      document.getElementById('cart-header-count').textContent = totalItems;
+      document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('cart-delivery').textContent = subtotal > 0 ? `$${delivery.toFixed(2)}` : '$0.00';
+      document.getElementById('cart-total').textContent = `$${grandTotal.toFixed(2)}`;
+      document.getElementById('checkout-final-amount').textContent = `$${grandTotal.toFixed(2)}`;
+
+      const discountRow = document.getElementById('cart-discount-row');
+      if (promoDiscountApplied && subtotal > 0) {
+        discountRow.classList.remove('hidden');
+        discountRow.classList.add('flex');
+        document.getElementById('cart-discount').textContent = `-$${discount.toFixed(2)}`;
+      } else {
+        discountRow.classList.add('hidden');
+        discountRow.classList.remove('flex');
+      }
+
+      const checkoutBtn = document.getElementById('proceed-checkout-btn');
+      checkoutBtn.disabled = cart.length === 0;
+
+      const container = document.getElementById('cart-items-container');
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center py-12">
+            <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-zinc-600 text-2xl mb-4">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h4 class="font-display text-2xl text-white">YOUR BAG IS EMPTY</h4>
+            <p class="text-xs text-zinc-400 max-w-xs mt-1">Craving shatter-crisp chicken? Add signature burgers, wings, or buckets from the menu.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = cart
+        .map(
+          (item, idx) => `
+          <div class="glass-panel p-3.5 rounded-2xl flex items-center gap-3.5 border border-white/10">
+            <img src="${item.img}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0" onerror="this.src='https://placehold.co/100x100/18181F/FF6B00?text=FOOD'" />
+            <div class="flex-1 min-w-0">
+              <h5 class="font-bold text-sm text-white truncate">${item.name}</h5>
+              <p class="text-[11px] text-zinc-400 truncate">${item.variant}</p>
+              <div class="text-gold font-extrabold text-sm mt-1">$${(item.price * item.qty).toFixed(2)}</div>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+              <button type="button" onclick="removeCartItem(${idx})" aria-label="Remove item" class="text-zinc-500 hover:text-flame text-xs transition">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+              <div class="flex items-center gap-1.5 bg-obsidian rounded-lg p-1 border border-white/10">
+                <button type="button" onclick="updateCartItemQty(${idx}, -1)" class="w-6 h-6 rounded bg-white/5 hover:bg-white/15 text-xs font-bold">-</button>
+                <span class="w-5 text-center text-xs font-extrabold">${item.qty}</span>
+                <button type="button" onclick="updateCartItemQty(${idx}, 1)" class="w-6 h-6 rounded bg-white/5 hover:bg-white/15 text-xs font-bold">+</button>
+              </div>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    // Cart Drawer Open / Close
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartBackdrop = document.getElementById('cart-drawer-backdrop');
+
+    function openCartDrawer() {
+      cartBackdrop.classList.remove('hidden');
+      cartDrawer.classList.remove('translate-x-full', 'rtl:-translate-x-full');
+    }
+
+    function closeCartDrawer() {
+      cartBackdrop.classList.add('hidden');
+      cartDrawer.classList.add('translate-x-full', 'rtl:-translate-x-full');
+    }
+
+    document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+    document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+    cartBackdrop.addEventListener('click', closeCartDrawer);
+
+    document.getElementById('clear-cart-btn').addEventListener('click', () => {
+      cart = [];
+      promoDiscountApplied = false;
+      saveCart();
+      updateCartUI();
+      showToast('Cart cleared.');
+    });
+
+    // Promo Code Handler
+    document.getElementById('apply-promo-btn').addEventListener('click', () => {
+      const code = document.getElementById('promo-input').value.trim().toUpperCase();
+      const feedback = document.getElementById('promo-feedback');
+      feedback.classList.remove('hidden');
+
+      if (code === 'CRUNCH20' || code === 'FLAME20') {
+        promoDiscountApplied = true;
+        feedback.textContent = '✓ Code CRUNCH20 applied! 20% discount unlocked.';
+        feedback.className = 'text-xs font-semibold text-emerald-400';
+        updateCartUI();
+      } else {
+        promoDiscountApplied = false;
+        feedback.textContent = 'Invalid promo code. Try CRUNCH20 for 20% OFF!';
+        feedback.className = 'text-xs font-semibold text-flame';
+        updateCartUI();
+      }
+    });
+
+    // =========================================================================
+    // 9. CHECKOUT FLOW & ORDER CONFIRMATION
+    // =========================================================================
+    const checkoutModal = document.getElementById('checkout-modal');
+
+    document.getElementById('proceed-checkout-btn').addEventListener('click', () => {
+      closeCartDrawer();
+      document.getElementById('checkout-form-view').classList.remove('hidden');
+      document.getElementById('checkout-success-view').classList.add('hidden');
+      checkoutModal.classList.remove('hidden');
+      checkoutModal.classList.add('flex');
+    });
+
+    document.getElementById('close-checkout-modal').addEventListener('click', () => {
+      checkoutModal.classList.add('hidden');
+      checkoutModal.classList.remove('flex');
+    });
+
+    document.getElementById('checkout-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('order-tracking-id').textContent = `#FC-${randomOrderNum}`;
+      document.getElementById('checkout-form-view').classList.add('hidden');
+      document.getElementById('checkout-success-view').classList.remove('hidden');
+
+      // Empty cart after successful order
+      cart = [];
+      promoDiscountApplied = false;
+      saveCart();
+      updateCartUI();
+    });
+
+    document.getElementById('done-order-btn').addEventListener('click', () => {
+      checkoutModal.classList.add('hidden');
+      checkoutModal.classList.remove('flex');
+    });
+
+    // =========================================================================
+    // 10. CUSTOMER REVIEWS & LIVE SUBMISSION
+    // =========================================================================
+    function renderReviews() {
+      const grid = document.getElementById('reviews-grid');
+      if (!grid) return;
+
+      grid.innerHTML = reviews
+        .map(
+          (rev) => `
+          <div class="glass-card p-6 rounded-3xl flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="text-gold text-sm tracking-wider">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</div>
+                <span class="text-[11px] text-zinc-500">${rev.date}</span>
+              </div>
+              <p class="text-zinc-300 text-sm leading-relaxed">"${rev.text}"</p>
+            </div>
+            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-fire text-white font-bold text-xs flex items-center justify-center">
+                  ${rev.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white">${rev.name}</div>
+                  <div class="text-[11px] text-ember">${rev.item || 'Verified Diner'}</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-circle-check text-emerald-400 text-xs" title="Verified Order"></i>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    const reviewModal = document.getElementById('review-modal');
+    document.getElementById('open-review-modal-btn').addEventListener('click', () => {
+      reviewModal.classList.remove('hidden');
+      reviewModal.classList.add('flex');
+    });
+    document.getElementById('close-review-modal').addEventListener('click', () => {
+      reviewModal.classList.add('hidden');
+      reviewModal.classList.remove('flex');
+    });
+
+    document.getElementById('review-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('rev-name').value.trim();
+      const item = document.getElementById('rev-item').value.trim() || 'Crunch Feast';
+      const rating = parseInt(document.getElementById('rev-rating').value, 10) || 5;
+      const text = document.getElementById('rev-text').value.trim();
+
+      reviews.unshift({ name, item, rating, text, date: 'Just now' });
+      renderReviews();
+      e.target.reset();
+      reviewModal.classList.add('hidden');
+      reviewModal.classList.remove('flex');
+      showToast('Thank you! Your review is now live.');
+    });
+
+    // =========================================================================
+    // 11. SEARCH, SPICE FILTERS, COUNTDOWN TIMER & FORMS
+    // =========================================================================
+    document.getElementById('menu-search').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderMenuGrid();
+    });
+
+    document.querySelectorAll('.spice-filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.spice-filter-btn').forEach((b) => {
+          b.classList.remove('bg-gradient-fire', 'text-white');
+          b.classList.add('bg-white/5', 'text-zinc-300');
+        });
+        btn.classList.remove('bg-white/5', 'text-zinc-300');
+        btn.classList.add('bg-gradient-fire', 'text-white');
+        selectedSpice = btn.getAttribute('data-spice');
+        renderMenuGrid();
+      });
+    });
+
+    document.getElementById('reset-filters-btn').addEventListener('click', () => {
+      selectedCategory = 'All';
+      selectedSpice = 'all';
+      searchQuery = '';
+      document.getElementById('menu-search').value = '';
+      renderCategoryTabs();
+      renderMenuGrid();
+    });
+
+    // Live Flash Deals Countdown
+    (function startCountdown() {
+      let totalSeconds = 4 * 3600 + 38 * 60 + 59;
+      setInterval(() => {
+        if (totalSeconds <= 0) totalSeconds = 5 * 3600;
+        totalSeconds--;
+        const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(totalSeconds % 60).padStart(2, '0');
+        const hEl = document.getElementById('timer-hours');
+        const mEl = document.getElementById('timer-mins');
+        const sEl = document.getElementById('timer-secs');
+        if (hEl) hEl.textContent = h;
+        if (mEl) mEl.textContent = m;
+        if (sEl) sEl.textContent = s;
+      }, 1000);
+    })();
+
+    // Contact & Newsletter Forms
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.reset();
+      showToast('Message received! Our Flame Hub manager will contact you shortly.');
+    });
+
+    document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.reset();
+      showToast('Welcome to the Crunch Club! Use code CRUNCH20 at checkout.');
+    });
+
+    // =========================================================================
+    // 12. NAVBAR SCROLL TRANSITION, MOBILE MENU, LANGUAGE TOGGLE & TOASTS
+    // =========================================================================
+    const navContainer = document.getElementById('nav-container');
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navContainer.classList.add('glass-panel', 'shadow-2xl', 'border', 'border-white/10');
+      } else {
+        navContainer.classList.remove('glass-panel', 'shadow-2xl', 'border', 'border-white/10');
+      }
+
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Mobile Nav Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', () => mobileNav.classList.add('hidden'));
+    });
+
+    // Bilingual EN / AR Language Switcher
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('lang-label').textContent = currentLang === 'en' ? 'AR' : 'EN';
+
+      const dict = I18N[currentLang];
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+
+      renderBestSellers();
+      renderCategoryTabs();
+      renderMenuGrid();
+      updateCartUI();
+      showToast(currentLang === 'ar' ? 'تم التبديل إلى اللغة العربية' : 'Switched to English');
+    });
+
+    // Toast Helper
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className =
+        'glass-panel border border-ember/40 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold transform translate-y-4 opacity-0 transition-all duration-300';
+      toast.innerHTML = `<i class="fa-solid fa-fire-flame-curved text-ember text-base"></i><span>${message}</span>`;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 320);
+      }, 3000);
+    }
+
+    // =========================================================================
+    // 13. GSAP SCROLLTRIGGER CHOREOGRAPHY
+    // =========================================================================
+    function initGSAPAnimations() {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.from('#home h1', { y: 35, opacity: 0, duration: 0.85, ease: 'power3.out' });
+      gsap.from('#hero-3d-dish', { scale: 0.88, opacity: 0, duration: 0.95, delay: 0.15, ease: 'back.out(1.4)' });
+
+      gsap.utils.toArray('section').forEach((sec, idx) => {
+        if (idx === 0) return;
+        gsap.from(sec, {
+          y: 32,
+          opacity: 0.25,
+          duration: 0.75,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sec,
+            start: 'top 85%',
+            once: true
+          }
+        });
+      });
+    }
+
+    // =========================================================================
+    // 14. INITIALIZE APP ON LOAD
+    // =========================================================================
+    renderBestSellers();
+    renderCategoryTabs();
+    renderMenuGrid();
+    renderReviews();
+    updateCartUI();
+  </script>
+</body>
+</html>
